@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Teacher extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        // 'teacher_code',
         'full_name',
+        'password',
         'specialization',
         'phone',
         'email',
@@ -21,4 +22,10 @@ class Teacher extends Model
         'photo_url',
         'is_active'
     ];
+
+    // تشفير كلمة المرور تلقائيًا عند الحفظ
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }

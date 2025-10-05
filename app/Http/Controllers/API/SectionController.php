@@ -25,4 +25,8 @@ class SectionController extends Controller
             'data' => $section
         ], 201);
     }
+ public function index()
+    {
+        return response()->json(Section::all());
+    }
 }

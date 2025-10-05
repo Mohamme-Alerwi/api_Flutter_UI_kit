@@ -24,4 +24,11 @@ class Section extends Model
     {
         return $this->belongsTo(Teacher::class, 'teacher_id');
     }
+
+    // للحضور
+    public function attendances()
+{
+    return $this->hasMany(Attendance::class, 'section_id');
+}
+
 }

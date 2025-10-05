@@ -12,6 +12,12 @@ class SchoolClass extends Model
         'academic_year',
         'class_capacity',
     ]; 
+     // للحضور
+    public function attendances()
+{
+    return $this->hasMany(Attendance::class, 'grade_id');
+}
+
 }
 
 

@@ -12,6 +12,7 @@ return new class extends Migration {
             // $table->string('teacher_code')->unique(); // كود المعلم
             $table->string('full_name'); // الاسم الكامل
 $table->string('password');
+$table->string('role')->default('teacher'); 
 
             $table->string('specialization'); // التخصص
             $table->string('phone')->nullable(); // رقم الهاتف

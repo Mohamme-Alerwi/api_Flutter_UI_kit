@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 
-class AuthController extends Controller
+class AuthController_S extends Controller
 {
     // تسجيل مستخدم جديد
     public function register(Request $request)
@@ -30,31 +30,31 @@ class AuthController extends Controller
     }
 
     // تسجيل الدخول
-    public function login(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+    // public function login(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string',
+    //         'email' => 'required|email',
+    //         'password' => 'required|string',
+    //     ]);
 
-        $student = Student::where('name', $request->name)
-                          ->where('email', $request->email)
-                          ->first();
+    //     $student = Student::where('name', $request->name)
+    //                       ->where('email', $request->email)
+    //                       ->first();
 
-        if (!$student || !Hash::check($request->password, $student->password)) {
-            return response()->json([
-                'success' => false,
-                'error' => 'بيانات الاعتماد غير صحيحة'
-            ], 401);
-        }
+    //     if (!$student || !Hash::check($request->password, $student->password)) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'error' => 'بيانات الاعتماد غير صحيحة'
+    //         ], 401);
+    //     }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'تم تسجيل الدخول بنجاح',
-            'user' => $student
-        ], 200);
-    }
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'تم تسجيل الدخول بنجاح',
+    //         'user' => $student
+    //     ], 200);
+    // }
 
     // API endpoint لإرجاع جميع الطلاب بصيغة JSON (List of objects)
     public function getAllStudents()

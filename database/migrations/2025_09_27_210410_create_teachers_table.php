@@ -23,6 +23,8 @@ $table->string('role')->default('teacher');
             $table->string('photo_url')->nullable(); // رابط صورة
             $table->boolean('is_active')->default(true); // نشط/غير نشط
             $table->timestamps(); // created_at و updated_at تلقائي
+            $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+
         });
     }
 

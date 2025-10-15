@@ -18,6 +18,8 @@ $table->string('email')->unique();
 $table->string('role')->default('student');
 $table->string('password');
 $table->timestamps();
+            $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+
 
         });
     }

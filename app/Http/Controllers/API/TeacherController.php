@@ -20,6 +20,7 @@ class TeacherController extends Controller
         'specialization' => 'required|string|max:255',
         'phone' => 'nullable|string|max:20',
         'email' => 'nullable|email|unique:teachers',
+        'grade_id' => 'required|exists:classes,id', // ربط بالصف
         'hire_date' => 'nullable|date',
         'salary' => 'nullable|numeric|min:0',
         'qualification' => 'nullable|string|max:100',
@@ -29,8 +30,8 @@ class TeacherController extends Controller
 
     $teacher = Teacher::create([
         'full_name' => $request->full_name,
-        // 'password' => Hash::make($request->password),
-        'password' => $request->password,
+        'password' => Hash::make($request->password),
+        // 'password' => $request->password,
         'specialization' => $request->specialization,
         'phone' => $request->phone,
         'email' => $request->email,
@@ -39,6 +40,8 @@ class TeacherController extends Controller
         'qualification'=> $request->qualification,
         'photo_url'=> $request->photo, // يجب أن يطابق قاعدة البيانات
         'is_active' => $request->is_active,
+        'grade_id' =>$request->grade_id,
+
     ]);
 
     return response()->json([

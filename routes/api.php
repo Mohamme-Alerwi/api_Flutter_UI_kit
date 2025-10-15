@@ -153,19 +153,17 @@ Route::post('/login/student', [AuthController::class, 'loginStudent']);
 
 // تسجيل دخول ألمدير
 Route::post('/login/admin', [AuthController::class, 'loginAdmin']);
-
 Route::middleware('auth:sanctum')->group(function () {
 
-    // routes للمعلمين فقط
+    // للمعلمين فقط
     Route::middleware('can:isTeacher')->group(function () {
         Route::get('/teachers/dashboard', [TeacherController::class, 'dashboard']);
-        Route::get('/library', [LibraryController::class, 'apiIndex']);
+        // Route::get('/library', [LibraryController::class, 'apiIndex']);
         Route::post('/library', [LibraryController::class, 'store']);
     });
 
-    // routes للطلاب فقط
+    // للطلاب فقط
     Route::middleware('can:isStudent')->group(function () {
         Route::get('/students/dashboard', [StudentController::class, 'dashboard']);
     });
-
 });

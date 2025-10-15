@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,6 +18,7 @@ class Teacher extends Model
         'specialization',
         'phone',
         'email',
+        'grade_id',
         'hire_date',
         'salary',
         'qualification',
@@ -26,8 +27,8 @@ class Teacher extends Model
     ];
 
     // تشفير كلمة المرور تلقائيًا عند الحفظ
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = Hash::make($value);
+    // }
 }

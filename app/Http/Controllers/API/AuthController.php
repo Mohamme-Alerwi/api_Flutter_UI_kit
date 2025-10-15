@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Laravel\Sanctum\HasApiTokens; 
 use Illuminate\Support\Facades\Hash;
 use App\Models\Teacher;
 use App\Models\Student;
-use App\Models\User; // ✅ إضافة نموذج المستخدم
+use App\Models\User; // ✅ نموذج المستخدم
 
 class AuthController extends Controller
 {
@@ -24,8 +22,15 @@ class AuthController extends Controller
         $teacher = Teacher::where('email', $request->email)->first();
 
         if (!$teacher || !Hash::check($request->password, $teacher->password)) {
-            return response()->json(['message' => 'بيانات الدخول غير صحيحة'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'بيانات الدخول غير صحيحة'
+            ], 401);
         }
+
+        
+        // حذف التوكنات القديمة
+        $teacher->tokens()->delete();
 
         $token = $teacher->createToken('teacher_token')->plainTextToken;
 
@@ -37,10 +42,10 @@ class AuthController extends Controller
                 'name' => $teacher->name,
                 'email' => $teacher->email,
                 'role' => $teacher->role,
+                // 'grade_id'=> $teacher->grade_id,
             ],
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'role' => 'teacher',
         ], 200);
     }
 
@@ -55,9 +60,13 @@ class AuthController extends Controller
         $student = Student::where('email', $request->email)->first();
 
         if (!$student || !Hash::check($request->password, $student->password)) {
-            return response()->json(['message' => 'بيانات الدخول غير صحيحة'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'بيانات الدخول غير صحيحة'
+            ], 401);
         }
 
+        $student->tokens()->delete();
         $token = $student->createToken('student_token')->plainTextToken;
 
         return response()->json([
@@ -67,9 +76,12 @@ class AuthController extends Controller
                 'id' => $student->id,
                 'name' => $student->name,
                 'email' => $student->email,
+                // 'grade_id'=> $teacher->grade_id,
+                'grade_name' => $student->grade_id,
                 'role' => $student->role,
             ],
             'access_token' => $token,
+            'token_type' => 'Bearer',
             'role' => 'student',
         ], 200);
     }
@@ -85,9 +97,13 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'بيانات الدخول غير صحيحة'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'بيانات الدخول غير صحيحة'
+            ], 401);
         }
 
+        $user->tokens()->delete();
         $token = $user->createToken('admin_token')->plainTextToken;
 
         return response()->json([
@@ -103,17 +119,5 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'role' => 'admin',
         ], 200);
-    }
-
-    // تعريف Gates
-    public function boot()
-    {
-        Gate::define('isTeacher', function ($user) {
-            return $user instanceof \App\Models\Teacher;
-        });
-
-        Gate::define('isStudent', function ($user) {
-            return $user instanceof \App\Models\Student;
-        });
     }
 }

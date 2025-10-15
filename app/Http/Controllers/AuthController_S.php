@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController_S extends Controller
 {
+    protected function redirectTo($request)
+{
+    if (! $request->expectsJson()) {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
+}
+
     // تسجيل مستخدم جديد
     public function register(Request $request)
     {
@@ -15,12 +22,14 @@ class AuthController_S extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
             'password' => 'required|string|min:6',
+            'grade_id' => 'required|exists:classes,id', // ربط بالصف
         ]);
 
         $student = Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'grade_id' =>$request->grade_id
         ]);
 
         return response()->json([

@@ -13,13 +13,10 @@ class Student extends Model
 {
     use HasFactory;
     use HasApiTokens, Notifiable;
-    protected $fillable = ['name', 'email', 'password','role'];
+    protected $fillable = ['name', 'email', 'password','role','grade_id'];
      // للحضور
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
+   
         public function attendances()
 {
     return $this->hasMany(Attendance::class);

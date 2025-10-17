@@ -60,3 +60,21 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 # api_Flutter_UI_kit
+
+
+
+/الـــطـــلاب/
+1-محمد مطلوب العروي
+2-مروان حيدر قاسم
+3-مروان عبده صالح
+4-نواف محمد علي
+5-حسن مكي سليمان
+
+
+/شــــــــرح الــــــــمـــــــشــــــروع/
+المشروع هو نظام إدارة مدرسة مبني بلغة Laravel كـ API مرتبط بتطبيق Flutter.
+يُدير بيانات الطلاب والمعلمين والفصول والمواد والدرجات والحضور والمكتبة، مع تسجيل دخول وصلاحيات (مدير، معلم، طالب).
+يُرسل البيانات إلى تطبيق Flutter عبر JSON لتوفير واجهة تفاعلية لإدارة المدرسة.
+
+/خـــطـــوات الـــتـــشـــغـــيــل/
+1-

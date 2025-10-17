@@ -38,7 +38,7 @@ class ExamController extends Controller
 
      public function apiIndex()
     {
-        $exam = Exam::all(); // جلب كل بيانات جدول library
+        $exam = Exam::all();
         return response()->json($exam);
     }
 }

@@ -13,10 +13,10 @@ return new class extends Migration {
             $table->string('full_name'); // الاسم الكامل
 $table->string('password');
 $table->string('role')->default('teacher'); 
-
+$table->unsignedBigInteger('grade_id')->nullable();
             $table->string('specialization'); // التخصص
             $table->string('phone')->nullable(); // رقم الهاتف
-            $table->string('email')->unique()->nullable(); // البريد الإلكتروني
+            $table->string('email')->unique(); // البريد الإلكتروني
             $table->date('hire_date')->nullable(); // تاريخ التعيين
             $table->decimal('salary', 10, 2)->nullable(); // الراتب
             $table->string('qualification')->nullable(); // المؤهل العلمي

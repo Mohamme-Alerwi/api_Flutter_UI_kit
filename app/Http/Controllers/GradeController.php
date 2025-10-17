@@ -117,7 +117,7 @@ use Illuminate\Support\Facades\Storage;
 
 class GradeController extends Controller
 {
-    // ✅ عرض جميع الدرجات مع العلاقات
+    //  عرض جميع الدرجات مع العلاقات
     public function index()
     {
         try {
@@ -138,7 +138,7 @@ class GradeController extends Controller
         }
     }
 
-    // ✅ إضافة درجة جديدة
+    //  إضافة درجة جديدة
     public function store(Request $request)
     {
         try {
@@ -183,7 +183,7 @@ class GradeController extends Controller
         }
     }
 
-    // ✅ عرض درجة معينة
+    //  عرض درجة معينة
     public function show(Grade $grade)
     {
         try {
@@ -200,7 +200,7 @@ class GradeController extends Controller
         }
     }
 
-    // ✅ تعديل درجة
+    //  تعديل درجة
     public function update(Request $request, Grade $grade)
     {
         try {
@@ -238,7 +238,7 @@ class GradeController extends Controller
         }
     }
 
-    // ✅ حذف درجة
+    //  حذف درجة
     public function destroy(Grade $grade)
     {
         try {

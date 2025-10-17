@@ -83,7 +83,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController_S;
-use App\Http\Controllers\API\StudentController;
+// use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\ClassController;
 use App\Http\Controllers\API\SectionController;
 use App\Http\Controllers\API\TeacherController;
@@ -96,7 +96,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\API\AuthController;
 
 // ---------------- Notifications ----------------
-Route::get('/notifications', [NotificationsController::class, 'latestItems']);
+// Route::get('/notifications', [NotificationsController::class, 'latestItems']);
 
 // ---------------- Attendance ----------------
 Route::get('attendance', [AttendanceController::class, 'index']);
@@ -113,14 +113,14 @@ Route::get('exams/subjects', [SubjectController::class, 'index']);
 
 // ---------------- Library ----------------
 Route::get('library', [LibraryController::class, 'apiIndex']); // جلب جميع الكتب
-Route::post('library', [LibraryController::class, 'store']); // إضافة كتاب جديد
+// Route::post('library', [LibraryController::class, 'store']); // إضافة كتاب جديد
 Route::put('library/{id}', [LibraryController::class, 'update']); // تعديل كتاب
 Route::delete('library/{id}', [LibraryController::class, 'destroy']); // حذف كتاب
 
 Route::get('library/classes', [ClassController::class, 'index']); // جلب الصفوف
 Route::get('library/subjects', [SubjectController::class, 'index']); // جلب المواد
-Route::post('library/classes', [ClassController::class, 'store']); // إضافة صف للمكتبة
-Route::post('library/subjects', [SubjectController::class, 'store']); // إضافة مادة للمكتبة
+// Route::post('library/classes', [ClassController::class, 'store']); // إضافة صف للمكتبة
+// Route::post('library/subjects', [SubjectController::class, 'store']); // إضافة مادة للمكتبة
 
 // ---------------- Subjects ----------------
 Route::get('subjects', [SubjectController::class, 'index']);
@@ -153,17 +153,43 @@ Route::post('/login/student', [AuthController::class, 'loginStudent']);
 
 // تسجيل دخول ألمدير
 Route::post('/login/admin', [AuthController::class, 'loginAdmin']);
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function ()
+ {
 
-    // للمعلمين فقط
-    Route::middleware('can:isTeacher')->group(function () {
-        Route::get('/teachers/dashboard', [TeacherController::class, 'dashboard']);
-        // Route::get('/library', [LibraryController::class, 'apiIndex']);
-        Route::post('/library', [LibraryController::class, 'store']);
+    //للمعلم
+   Route::middleware('can:isTeacher')->group(function () {
+        Route::post('library', [LibraryController::class, 'store']);
     });
+
+    // للمدير فقط
+    Route::middleware('can:isAdmin')->group(function () {
+        Route::post('library', [LibraryController::class, 'store']);
+    });
+    //للطالب
+        Route::middleware('can:isStudent')->group(function () {
+        Route::get('/students/dashboard', [AuthController_S::class, 'dashboard']);
+    });
+    
+});
+
+  
+  
+ 
+
+
+
+
+
+
+
+  // للمعلمين فقط
+    // Route::middleware('can:isTeacher')->group(function () {
+    //     Route::get('/teachers/dashboard', [TeacherController::class, 'dashboard']);
+    //     // Route::get('/library', [LibraryController::class, 'apiIndex']);
+    //     Route::post('library', [LibraryController::class, 'store']);
+    // });
 
     // للطلاب فقط
-    Route::middleware('can:isStudent')->group(function () {
-        Route::get('/students/dashboard', [StudentController::class, 'dashboard']);
-    });
-});
+    // Route::middleware('can:isStudent')->group(function () {
+    //     Route::get('/students/dashboard', [StudentController::class, 'dashboard']);
+    // });

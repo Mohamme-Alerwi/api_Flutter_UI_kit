@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController_S extends Controller
 {
+    //تُرجع رسالة خطأ (401)
+    //  عند محاولة 
+    // الوصول إلى مورد بدون تسجيل دخول في حال لم يكن الطلب من نوع JSON.
     protected function redirectTo($request)
 {
     if (! $request->expectsJson()) {

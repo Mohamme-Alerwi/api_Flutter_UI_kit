@@ -16,10 +16,10 @@ return new class extends Migration
 $table->string('name');
 $table->string('email')->unique();
 $table->string('role')->default('student');
+$table->unsignedBigInteger('grade_id');
 $table->string('password');
 $table->timestamps();
-            $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
-
+$table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
 
         });
     }

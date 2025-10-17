@@ -27,7 +27,7 @@ return new class extends Migration
     $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
     // التاريخ (النظام يحدده أوتوماتيكياً)
-    $table->date('date')->default(DB::raw('CURRENT_DATE'));
+    $table->ء('date')->default(DB::raw('CURRENT_DATE'));
 
     // حالة الحضور
     $table->enum('status', ['حاضر', 'غائب'])->default('حاضر');

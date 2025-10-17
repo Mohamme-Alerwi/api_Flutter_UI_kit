@@ -15,7 +15,6 @@ return new class extends Migration
             $table->integer('section_capacity')->nullable(); // سعة الشعبة
             $table->unsignedBigInteger('teacher_id')->nullable(); // معلم الشعبة (FK)
             $table->timestamps();
-
             // المفاتيح الأجنبية
             $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreign('teacher_id')->references('id')->on('teachers')->nullOnDelete();

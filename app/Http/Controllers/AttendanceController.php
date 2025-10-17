@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+
     public function index(Request $request)
     {
         $date = $request->query('date', now()->toDateString());
@@ -19,6 +20,7 @@ class AttendanceController extends Controller
         return response()->json($attendances);
     }
 
+    //هذه الدالة store مسؤولة عن تسجيل أو تحديث حضور الطالب
     public function store(Request $request)
     {
         // التحقق من الحقول مباشرة

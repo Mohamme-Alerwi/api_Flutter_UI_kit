@@ -41,37 +41,76 @@ class AuthController_S extends Controller
         ], 201);
     }
 
-    // تسجيل الدخول
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string',
-    //         'email' => 'required|email',
-    //         'password' => 'required|string',
-    //     ]);
-
-    //     $student = Student::where('name', $request->name)
-    //                       ->where('email', $request->email)
-    //                       ->first();
-
-    //     if (!$student || !Hash::check($request->password, $student->password)) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'error' => 'بيانات الاعتماد غير صحيحة'
-    //         ], 401);
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'تم تسجيل الدخول بنجاح',
-    //         'user' => $student
-    //     ], 200);
-    // }
-
     // API endpoint لإرجاع جميع الطلاب بصيغة JSON (List of objects)
     public function getAllStudents()
     {
         $students = Student::all(); // جلب كل الطلاب
         return response()->json($students, 200);
     }
+       public function index()
+    {
+        $students = Student::all(); // جلب كل الطلاب
+        return response()->json($students, 200);
+    }
+    
 }
+
+
+// خاص بـDashboard
+// namespace App\Http\Controllers;
+// use App\Http\Controllers\Controller;
+// use App\Models\Student;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Hash;
+
+
+// class AuthController_S extends Controller
+// {
+//     public function index() {
+//         $students = Student::all();
+//         return view('students.index', compact('students'));
+//     }
+
+//    public function create()
+//     {
+//         return view('students.create');
+//     }
+
+//     // تخزين الطالب بدون CSRF
+//   public function store(Request $request)
+// {
+//     // استلام البيانات من GET
+//     $name = $request->query('name');
+//     $email = $request->query('email');
+//     $phone = $request->query('phone');
+
+//     // إنشاء الطالب
+//     Student::create([
+//         'name' => $name,
+//         'email' => $email,
+//         'phone' => $phone,
+//         'password' => Hash::make('123456'), // كلمة مرور افتراضية
+//     ]);
+
+//     return redirect('/students'); // الرجوع لقائمة الطلاب
+// }
+
+//     public function edit($id) {
+//         $student = Student::findOrFail($id);
+//         return view('students.edit', compact('student'));
+//     }
+
+//     public function update(Request $request, $id) {
+//         $student = Student::findOrFail($id);
+//         $student->update($request->all());
+//         return redirect()->route('students.index');
+//     }
+
+//  public function destroy($id)
+//     {
+//         $student = Student::findOrFail($id);
+//         $student->delete();
+
+//         return redirect()->route('students.index');
+//     }
+// }

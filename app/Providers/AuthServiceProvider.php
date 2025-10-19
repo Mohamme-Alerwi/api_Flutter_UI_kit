@@ -11,6 +11,24 @@ use App\Models\Student;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    protected $except = [
+    'students/store',
+    'students/delete/*',
+    'teachers/store',
+    'teachers/delete/*',
+    'book/store',
+    'book/delete/*',
+    
+];
+
+//خاص Dashboard
+// protected $except = [
+//     'students/*',
+//     'teachers/*',
+//     'book/*',
+// ];
+
+
     /**
      * The policy mappings for the application.
      *
@@ -27,7 +45,33 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // // Gates للمعلمين
+   
+        
+      Gate::define('isTeacher', function ($user) {
+        return $user instanceof Teacher;
+        });
+
+        Gate::define('isStudent', function ($user) {
+        return $user instanceof Student;
+        });
+
+        Gate::define('isAdmin', function ($user) {
+        return $user instanceof User && $user->role === 'admin';
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+     // // Gates للمعلمين
         // Gate::define('isTeacher', function (User $user) {
         //     return $user->role === 'teacher';
         // });
@@ -40,18 +84,4 @@ class AuthServiceProvider extends ServiceProvider
         // // Gates للمدير
         // Gate::define('isAdmin', function (User $user) {
         //     return $user->role === 'admin';
-        // });
-        
-      Gate::define('isTeacher', function ($user) {
-    return $user instanceof Teacher;
-});
-
-Gate::define('isStudent', function ($user) {
-    return $user instanceof Student;
-});
-
-Gate::define('isAdmin', function ($user) {
-    return $user instanceof User && $user->role === 'admin';
-});
-    }
-}
+        // }); -->

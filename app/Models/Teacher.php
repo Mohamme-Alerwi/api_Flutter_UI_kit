@@ -25,6 +25,9 @@ class Teacher extends Model
         'photo_url',
         'is_active'
     ];
+   // Dashboard خاص بـ
+    // protected $fillable = ['full_name', 'email', 'phone', 'specialization', 'password'];
+
 
     // تشفير كلمة المرور تلقائيًا عند الحفظ
     // public function setPasswordAttribute($value)

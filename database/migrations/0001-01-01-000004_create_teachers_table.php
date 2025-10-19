@@ -11,9 +11,13 @@ return new class extends Migration {
             $table->id(); // المفتاح الأساسي
             // $table->string('teacher_code')->unique(); // كود المعلم
             $table->string('full_name'); // الاسم الكامل
-$table->string('password');
-$table->string('role')->default('teacher'); 
-$table->unsignedBigInteger('grade_id')->nullable();
+            $table->string('password');
+            $table->string('role')->default('teacher'); 
+            $table->unsignedBigInteger('grade_id')->nullable();
+
+            //خاص بDashbord
+            // $table->string('specialization')->default('عام');
+            
             $table->string('specialization'); // التخصص
             $table->string('phone')->nullable(); // رقم الهاتف
             $table->string('email')->unique(); // البريد الإلكتروني

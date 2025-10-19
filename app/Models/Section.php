@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory; // <--- هذا هو ال�
 
 class Section extends Model
 {
-    use HasFactory; // الآن سيعمل بدون خطأ
+    use HasFactory; 
 
     protected $fillable = [
         'grade_id',

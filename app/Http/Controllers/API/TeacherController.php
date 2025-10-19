@@ -118,3 +118,58 @@ class TeacherController extends Controller
 
   
 }
+
+
+
+
+
+
+// خاص بـDashboard
+// namespace App\Http\Controllers\API;
+
+// use Illuminate\Http\Request;
+// use App\Http\Controllers\Controller;
+// use App\Models\Teacher;
+// use Illuminate\Support\Facades\Hash; // لا تنسى إضافة هذا
+
+// class TeacherController extends Controller
+// {
+//     // عرض جميع المعلمين
+//     public function index()
+//     {
+//         $teachers = Teacher::all();
+//         return view('teachers.index', compact('teachers'));
+//     }
+
+//     // صفحة إضافة معلم
+
+// public function store(Request $request)
+// {
+//     $name = $request->query('name');
+//     $email = $request->query('email');
+//     $phone = $request->query('phone');
+//     $specialization = $request->query('specialization', 'عام'); // قيمة افتراضية
+
+//     if (!Teacher::where('email', $email)->exists()) {
+//         Teacher::create([
+//             'full_name' => $name,
+//             'email' => $email,
+//             'phone' => $phone,
+//             'specialization' => $specialization, // ← ضروري
+//             'password' => Hash::make('123456'),
+//         ]);
+//     }
+
+//     return redirect('/teachers');
+// }
+
+
+
+//     // حذف معلم بدون CSRF
+//     public function destroy($id)
+//     {
+//         $teacher = Teacher::findOrFail($id);
+//         $teacher->delete();
+//         return redirect('/teachers');
+//     }
+// }

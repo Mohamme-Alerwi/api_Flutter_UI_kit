@@ -77,4 +77,21 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 يُرسل البيانات إلى تطبيق Flutter عبر JSON لتوفير واجهة تفاعلية لإدارة المدرسة.
 
 /خـــطـــوات الـــتـــشـــغـــيــل/
-1-
+داخل موديل المكتبة افتح التعليق عن كل مايخص لوحة التحكم اذا اردت الاضافة والحذف من Dashboard
+ داخل
+1- موديل المكتبة
+2- موديل المعلم
+3-كونترول المعلم
+4-كونترول الطالب
+5-كونترول المكتبة 
+6-ميجريشن تبع المعلمين
+7-app\Providers\AuthServiceProvider.php افتح التعليق الذي داخله
+و علق مافوقها
+__________________________
+
+لعمل api + flutter 
+1-اعمل php artisan migrate
+2-php artisan ser --host 0.0.0.0 --port 8000
+
+
+

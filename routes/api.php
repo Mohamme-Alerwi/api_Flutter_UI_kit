@@ -99,17 +99,17 @@ use App\Http\Controllers\API\AuthController;
 // Route::get('/notifications', [NotificationsController::class, 'latestItems']);
 
 // ---------------- Attendance ----------------
-Route::get('attendance', [AttendanceController::class, 'index']);
-Route::post('attendance', [AttendanceController::class, 'store']);
+Route::get('attendance', [AttendanceController::class, 'index']);//
+Route::post('attendance', [AttendanceController::class, 'store']);//
 
 // ---------------- Grades ----------------
-Route::apiResource('grades', GradeController::class);
+Route::apiResource('grades', GradeController::class);//
 
 // ---------------- Exams ----------------
 Route::get('exams', [ExamController::class, 'apiIndex']); // جلب كل الاختبارات
-Route::post('exams', [ExamController::class, 'store']);
-Route::get('exams/classes', [ClassController::class, 'index']);
-Route::get('exams/subjects', [SubjectController::class, 'index']);
+Route::post('exams', [ExamController::class, 'store']);//
+Route::get('exams/classes', [ClassController::class, 'index']);//
+Route::get('exams/subjects', [SubjectController::class, 'index']);//
 
 // ---------------- Library ----------------
 Route::get('library', [LibraryController::class, 'apiIndex']); // جلب جميع الكتب
@@ -123,8 +123,8 @@ Route::get('library/subjects', [SubjectController::class, 'index']); // جلب �
 // Route::post('library/subjects', [SubjectController::class, 'store']); // إضافة مادة للمكتبة
 
 // ---------------- Subjects ----------------
-Route::get('subjects', [SubjectController::class, 'index']);
-Route::post('subjects', [SubjectController::class, 'store']);
+Route::get('subjects', [SubjectController::class, 'index']);//
+Route::post('subjects', [SubjectController::class, 'store']);//
 
 // ---------------- Teachers ----------------
 // Route::post('/teachers/login', [TeacherController::class, 'login']);
@@ -133,14 +133,14 @@ Route::get('/teachers/{id}', [TeacherController::class, 'show']); // معلم م
 Route::post('/teachers', [TeacherController::class, 'store']); // إضافة معلم
 
 // ---------------- Sections ----------------
-Route::get('classes', [ClassController::class, 'index']); 
-Route::post('classes', [ClassController::class, 'store']);
-Route::post('sections', [SectionController::class, 'store']);
+Route::get('classes', [ClassController::class, 'index']); //
+Route::post('classes', [ClassController::class, 'store']);//
+Route::post('sections', [SectionController::class, 'store']);//اضافة شعبة
 Route::post('sections/index', [SectionController::class, 'index']); // إذا كنت تحتاج POST لجلبها
 
 // ---------------- Students ----------------
-Route::get('/students', [AuthController_S::class, 'getAllStudents']);
-Route::post('/register', [AuthController_S::class, 'register']);
+Route::get('/students', [AuthController_S::class, 'getAllStudents']);//جلب الطلاب بصيغة json
+Route::post('/register', [AuthController_S::class, 'register']);//اضافة طالب (انشاء حساب)
 // Route::post('login', [AuthController_S::class, 'login']);
 
 
@@ -153,6 +153,8 @@ Route::post('/login/student', [AuthController::class, 'loginStudent']);
 
 // تسجيل دخول ألمدير
 Route::post('/login/admin', [AuthController::class, 'loginAdmin']);
+
+
 Route::middleware('auth:sanctum')->group(function ()
  {
 
@@ -173,8 +175,18 @@ Route::middleware('auth:sanctum')->group(function ()
 });
 
   
-  
  
+
+
+
+
+
+
+
+
+
+
+
 
 
 

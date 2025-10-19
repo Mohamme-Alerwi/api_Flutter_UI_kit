@@ -18,7 +18,6 @@ class Library extends Model
     'file_name',
     'file_path',
 ];
-
 // علاقات
 public function class() {
     return $this->belongsTo(\App\Models\Classes::class, 'grade_id');
@@ -29,3 +28,21 @@ public function subject() {
 }
 
 }
+
+
+
+// خاص بـDashboard
+// namespace App\Models;
+
+// use Illuminate\Database\Eloquent\Model;
+// // إذا أردت الفاكتوري: استخدم السطر التالي
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+// class Library extends Model
+// {
+
+//     use HasFactory; // احذف هذا السطر إذا لا تستخدم الفاكتوري
+
+//     protected $table = 'library'; // اسم الجدول
+//     protected $fillable = ['title', 'author', 'year']; // الحقول المسموح تعبئتها
+// }

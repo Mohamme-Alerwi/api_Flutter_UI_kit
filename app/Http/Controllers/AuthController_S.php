@@ -52,7 +52,27 @@ class AuthController_S extends Controller
         $students = Student::all(); // جلب كل الطلاب
         return response()->json($students, 200);
     }
-    
+    public function filter(Request $request)
+{
+    $classId = $request->query('class_id');
+    $sectionId = $request->query('section_id');
+
+    $query = \App\Models\Student::query();
+
+    if ($classId) {
+        $query->where('class_id', $classId);
+    }
+
+    if ($sectionId) {
+        $query->where('section_id', $sectionId);
+    }
+
+    $students = $query->get();
+
+    return response()->json($students);
+}
+
+
 }
 
 

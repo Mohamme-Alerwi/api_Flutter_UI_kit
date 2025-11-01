@@ -86,14 +86,21 @@ use App\Http\Controllers\AuthController_S;
 // use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\ClassController;
 use App\Http\Controllers\API\SectionController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\TeacherStatusController;
 use App\Http\Controllers\API\TeacherController;
 use App\Http\Controllers\API\SubjectController;
 use App\Http\Controllers\API\LibraryController;
 use App\Http\Controllers\API\ExamController;
+use App\Http\Controllers\StudentStatusController;
+use App\Http\Controllers\SmsController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AbsenceRequestController;
+use App\Http\Controllers\ParentComplaintController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\API\AuthController;
+
 
 // ---------------- Notifications ----------------
 // Route::get('/notifications', [NotificationsController::class, 'latestItems']);
@@ -128,9 +135,9 @@ Route::post('subjects', [SubjectController::class, 'store']);//
 
 // ---------------- Teachers ----------------
 // Route::post('/teachers/login', [TeacherController::class, 'login']);
-Route::get('/teachers', [TeacherController::class, 'index']); // جميع المعلمين
-Route::get('/teachers/{id}', [TeacherController::class, 'show']); // معلم محدد
-Route::post('/teachers', [TeacherController::class, 'store']); // إضافة معلم
+// Route::get('/teachers', [TeacherController::class, 'index']); // جميع المعلمين
+// Route::get('/teachers/{id}', [TeacherController::class, 'show']); // معلم محدد
+// Route::post('/teachers', [TeacherController::class, 'store']); // إضافة معلم
 
 // ---------------- Sections ----------------
 Route::get('classes', [ClassController::class, 'index']); //
@@ -177,17 +184,51 @@ Route::middleware('auth:sanctum')->group(function ()
   
  
 
+Route::post('/parent-complaint', [ParentComplaintController::class, 'store']);
+
+
+Route::post('/absence-request', [AbsenceRequestController::class, 'store']);
 
 
 
 
+// إرسال رسائل
+Route::post('send-sms', [SmsController::class, 'sendSms']);
+Route::post('send-whatsapp', [SmsController::class, 'sendWhatsApp']);
+
+// // جلب بيانات الطلاب والمستخدمين
+// Route::get('users', [UserController::class, 'getUsers']); // جلب المستخدمين
+// Route::get('students', [UserController::class, 'getStudent']); // جلب الطلاب مع الفصل والشعبة
+// Route::post('get-student-phone', [UserController::class, 'getStudentPhone']); // جلب رقم الطالب عبر user_id
+
+// جلب الفصول والشعب
+// Route::get('classes', [ClasseController::class, 'index']);
+// Route::get('/classes/{id}/sections', [ClassController::class, 'sections']);
+
+Route::get('students/filter', [SmsController::class, 'filter']);
+Route::post('get-user-phone', [SmsController::class, 'sendSmsToStudent']);
+
+// تحديث حالة معلم معين
+Route::post('/teacher-status', [TeacherStatusController::class, 'updateStatus']);
+
+// جلب كل الحالات الحالية للمعلمين
+Route::get('/teacher-statuses', [TeacherStatusController::class, 'getStatuses']);
 
 
+Route::get('teachers', [SmsController::class, 'getAllTeachers']);
+Route::post('get-user-phone_T', [SmsController::class, 'sendSmsToTeacher']);
+
+Route::get('/classes/{id}/sections', [ClassController::class, 'sections']);
 
 
+Route::get('/assignments', [AssignmentController::class, 'index']); // عرض كل التكاليف
+Route::get('/assignments/{id}', [AssignmentController::class, 'show']); // تفاصيل تكليف
+Route::post('/upload-assignment', [AssignmentController::class, 'upload']); // رفع تكليف جديد
+Route::post('/assignments/{id}/submit', [AssignmentController::class, 'submit']); // إتمام التكليف
 
 
-
+Route::post('/student-status', [StudentStatusController::class, 'updateStatus']);
+Route::get('/student-statuses', [StudentStatusController::class, 'getStatuses']);
 
 
 

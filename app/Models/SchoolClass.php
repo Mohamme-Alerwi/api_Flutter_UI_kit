@@ -17,7 +17,16 @@ class SchoolClass extends Model
 {
     return $this->hasMany(Attendance::class, 'grade_id');
 }
-
+    // العلاقة مع الطلاب عبر الشعب
+    public function students()
+    {
+        return $this->hasManyThrough(Student::class, Section::class, 'class_id', 'section_id');
+    }
+     // العلاقة مع الشعب
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'grade_id');
+    }
 }
 
 

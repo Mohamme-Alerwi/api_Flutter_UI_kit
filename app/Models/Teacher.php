@@ -23,7 +23,8 @@ class Teacher extends Model
         'salary',
         'qualification',
         'photo_url',
-        'is_active'
+        'is_active',
+        'user_id'
     ];
    // Dashboard خاص بـ
     // protected $fillable = ['full_name', 'email', 'phone', 'specialization', 'password'];
@@ -34,4 +35,15 @@ class Teacher extends Model
     // {
     //     $this->attributes['password'] = Hash::make($value);
     // }
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    //    return $this->hasOne(User::class,'user_id','students_id');
+    }
+    public function status()
+{
+    return $this->hasOne(TeacherStatus::class);
+}
 }

@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
+      protected $twilio;
+
+    public function __construct(TwilioService $twilio)
+    {
+        $this->twilio = $twilio;
+    }
     // إنشاء معلم جديد
    public function store(Request $request)
 {

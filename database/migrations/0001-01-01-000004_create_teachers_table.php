@@ -28,6 +28,8 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true); // نشط/غير نشط
             $table->timestamps(); // created_at و updated_at تلقائي
             $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

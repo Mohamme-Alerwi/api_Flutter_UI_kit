@@ -24,13 +24,28 @@ class ClassController extends Controller
             'data' => $class
         ], 201);
     }
-    public function index()
-{
-    $classes = SchoolClass::all();
-    return response()->json([
-        'success' => true,
-        'classes' => $classes
-    ], 200);
+//     public function index()
+// {
+//     $classes = SchoolClass::all();
+//     return response()->json([
+//         'success' => true,
+//         'classes' => $classes
+//     ], 200);
     
-}
+// }
+
+    public function index()
+    {
+        // جلب كل الفصول مع الشعب المرتبطة
+        $classes = SchoolClass::with('sections')->get();
+
+        return response()->json($classes);
+    }
+
+    // جلب الشعب لفصل معين
+    public function sections($classId)
+    {
+        $sections = \App\Models\Section::where('class_id', $classId)->get();
+        return response()->json($sections);
+    }
 }

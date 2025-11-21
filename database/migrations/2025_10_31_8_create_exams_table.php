@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             
             // الربط مع جدول الصفوف
-            $table->unsignedBigInteger('grade_id');
+            $table->unsignedBigInteger('class_id');
            
 // $table->foreignId('grade_id')->constrained('classes')->onDelete('cascade');
 
@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->text('note')->nullable();
 
             $table->timestamps();
-             $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+             $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }

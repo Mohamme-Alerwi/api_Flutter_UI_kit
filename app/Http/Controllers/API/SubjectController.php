@@ -12,7 +12,7 @@ class SubjectController extends Controller
     {
         $request->validate([
             'subject_name' => 'required|string|max:255',
-            'grade_id' => 'required|exists:classes,id',
+            'class_id' => 'required|exists:classes,id',
             'teacher_id' => 'nullable|exists:teachers,id',
         ]);
 

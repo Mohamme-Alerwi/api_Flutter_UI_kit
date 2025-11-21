@@ -9,16 +9,21 @@ class Subject extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['subject_name', 'grade_id', 'teacher_id'];
+    protected $fillable = ['subject_name', 'class_id', 'teacher_id'];
 
     // العلاقات
     public function schoolClass()
     {
-        return $this->belongsTo(SchoolClass::class, 'grade_id');
+        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 
     public function teacher()
     {
         return $this->belongsTo(Teacher::class, 'teacher_id');
+    }
+        // العلاقة مع الحصص
+    public function timetables()
+    {
+        return $this->hasMany(Timetable::class);
     }
 }

@@ -11,7 +11,7 @@ class Attendance extends Model
 
     protected $fillable = [
         'student_id',
-        'grade_id',
+        'class_id',
         'section_id',
         'date',
         'status',
@@ -28,11 +28,18 @@ protected $table = 'attendance';
 
     public function grade()
     {
-        return $this->belongsTo(Classes::class, 'grade_id');
+        return $this->belongsTo(Classes::class, 'class_id');
     }
 
     public function section()
     {
         return $this->belongsTo(Section::class);
     }
+
+    // الحضور مرتبط بالحصة
+    public function timetable()
+    {
+        return $this->belongsTo(Timetable::class, 'timetable_id');
+    }
 }
+

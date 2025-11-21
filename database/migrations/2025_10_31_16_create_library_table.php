@@ -18,14 +18,14 @@ return new class extends Migration
     $table->string('author');              // المؤلف
     $table->string('publisher')->nullable(); // الناشر
     $table->string('category')->nullable();  // التصنيف
-    $table->unsignedBigInteger('grade_id');  // الصف
+    $table->unsignedBigInteger('class_id');  // الصف
     $table->unsignedBigInteger('subject_id');// المادة
     $table->string('file_name')->nullable(); // اسم الملف
     $table->string('file_path')->nullable(); // مسار الملف
     $table->timestamps();                   // تاريخ الإضافة والتعديل
 
     // الربط بالصفوف والمواد
-    $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+    $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
     $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
 });
 

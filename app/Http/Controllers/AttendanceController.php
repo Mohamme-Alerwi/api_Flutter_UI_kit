@@ -13,7 +13,7 @@ class AttendanceController extends Controller
 
         $attendances = Attendance::with('student')
             ->where('date', $date)  
-            ->when($request->grade_id, fn($q) => $q->where('grade_id', $request->grade_id))
+            ->when($request->class_id, fn($q) => $q->where('class_id', $request->class_id))
             ->when($request->section_id, fn($q) => $q->where('section_id', $request->section_id))
             ->get();
 
@@ -26,7 +26,7 @@ class AttendanceController extends Controller
         // التحقق من الحقول مباشرة
         $validated = $request->validate([
             'student_id' => 'required|exists:students,id',
-            'grade_id' => 'required|exists:classes,id',
+            'class_id' => 'required|exists:classes,id',
             'section_id' => 'required|exists:sections,id',
             'date' => 'nullable|date',
             'status' => 'required|in:present,absent,حاضر,غائب',
@@ -40,7 +40,7 @@ class AttendanceController extends Controller
             [
                 'student_id' => $validated['student_id'],
                 'date' => $date,
-                'grade_id' => $validated['grade_id'],
+                'class_id' => $validated['class_id'],
                 'section_id' => $validated['section_id'],
             ],
             [

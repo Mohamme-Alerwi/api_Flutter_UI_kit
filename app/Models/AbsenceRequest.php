@@ -12,6 +12,7 @@ class AbsenceRequest extends Model
 
     protected $fillable = [
         'full_name',
+        'request_type', 
         'date',
         'reason',
         'details',

@@ -13,13 +13,28 @@ class Student extends Model
 {
     use HasFactory;
     use HasApiTokens, Notifiable;
-    protected $fillable = ['name', 'email', 'password','role','grade_id'];
+    protected $fillable = ['name', 'email', 'password','role','class_id'];
      // للحضور
 
    
-        public function attendances()
+
+    // الطالب ينتمي لفصل
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id');
+    }
+
+    // الطالب لديه حضور
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'student_id');
+    }
+    public function section() {
+    return $this->belongsTo(Section::class, 'section_id');
+}
+public function parents()
 {
-    return $this->hasMany(Attendance::class);
+    return $this->belongsToMany(ParentModel::class, 'parent_student', 'student_id', 'parent_id');
 }
 
 }

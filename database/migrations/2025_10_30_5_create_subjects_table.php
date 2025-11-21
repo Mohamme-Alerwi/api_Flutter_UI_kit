@@ -14,12 +14,12 @@ return new class extends Migration
     Schema::create('subjects', function (Blueprint $table) {
         $table->id(); // Primary Key
         $table->string('subject_name'); // اسم المادة
-        $table->unsignedBigInteger('grade_id'); // يرتبط بالفصل
+        $table->unsignedBigInteger('class_id'); // يرتبط بالفصل
         $table->unsignedBigInteger('teacher_id')->nullable(); // يرتبط بالمعلم (اختياري)
         $table->timestamps();
 
         // علاقات Foreign Keys
-        $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+        $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
         $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('set null');
     });
 }

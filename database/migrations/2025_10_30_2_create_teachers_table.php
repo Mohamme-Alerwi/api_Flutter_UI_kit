@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('full_name'); // الاسم الكامل
             $table->string('password');
             $table->string('role')->default('teacher'); 
-            $table->unsignedBigInteger('grade_id')->nullable();
+            $table->unsignedBigInteger('class_id')->nullable();
 
             //خاص بDashbord
             // $table->string('specialization')->default('عام');
@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->string('photo_url')->nullable(); // رابط صورة
             $table->boolean('is_active')->default(true); // نشط/غير نشط
             $table->timestamps(); // created_at و updated_at تلقائي
-            $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

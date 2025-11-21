@@ -13,7 +13,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             // $table->string('teacher_name');
             $table->unsignedBigInteger('teacher_id');
-            $table->unsignedBigInteger('grade_id'); // المفتاح الأجنبي → جدول الفصول
+            $table->unsignedBigInteger('class_id'); // المفتاح الأجنبي → جدول الفصول
 
             // $table->string('grade_name');
             $table->string('section');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('submission_file_path')->nullable(); // ملف التسليم من الطالب
             $table->timestamps();
             
-            $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
 
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
 

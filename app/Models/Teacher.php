@@ -18,7 +18,7 @@ class Teacher extends Model
         'specialization',
         'phone',
         'email',
-        'grade_id',
+        'class_id',
         'hire_date',
         'salary',
         'qualification',
@@ -46,4 +46,18 @@ class Teacher extends Model
 {
     return $this->hasOne(TeacherStatus::class);
 }
+
+
+  public function timetables()
+    {
+        return $this->hasMany(Timetable::class, 'teacher_id');
+    }
+    public function student()
+{
+    return $this->hasOne(\App\Models\Student::class, 'id', 'id'); // نفترض كل user student مرتبط بالـ students
+}
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }

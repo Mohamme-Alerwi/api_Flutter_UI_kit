@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Services\TwilioService;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +26,7 @@ class TeacherController extends Controller
         'specialization' => 'required|string|max:255',
         'phone' => 'nullable|string|max:20',
         'email' => 'nullable|email|unique:teachers',
-        'grade_id' => 'required|exists:classes,id', // ربط بالصف
+        'class_id' => 'required|exists:classes,id', // ربط بالصف
         'hire_date' => 'nullable|date',
         'salary' => 'nullable|numeric|min:0',
         'qualification' => 'nullable|string|max:100',
@@ -47,7 +47,7 @@ class TeacherController extends Controller
         'qualification'=> $request->qualification,
         'photo_url'=> $request->photo, // يجب أن يطابق قاعدة البيانات
         'is_active' => $request->is_active,
-        'grade_id' =>$request->grade_id,
+        'class_id' =>$request->class_id,
 
     ]);
 
@@ -59,11 +59,23 @@ class TeacherController extends Controller
 }
 
     // عرض جميع المعلمين (API endpoint جديد)
-    public function index()
-    {
-        $teachers = Teacher::all(); // جلب جميع المعلمين
-        return response()->json($teachers); // ترجع JSON List of objects
+    // public function index()
+    // {
+    //     $teachers = Teacher::all(); // جلب جميع المعلمين
+    //     return response()->json($teachers); // ترجع JSON List of objects
+    // }
+        public function index(Request $request)
+{
+    $teachers = Teacher::all();
+
+    // إذا كان الطلب من Flutter أو أي API (يرسل Accept: application/json)
+    if ($request->wantsJson()) {
+        return response()->json($teachers);
     }
+
+    // إذا كان طلب عادي من المتصفح
+    return view('teachers.index', compact('teachers'));
+}
 
     // عرض معلم واحد حسب ID (اختياري)
     public function show($id)
@@ -80,6 +92,12 @@ class TeacherController extends Controller
         return response()->json($teacher);
     }
 
+      public function destroy($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $teacher->delete();
+        return redirect('/teachers');
+    }
        // تسجيل الدخول
 // public function login(Request $request)
 // {

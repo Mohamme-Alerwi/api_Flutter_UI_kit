@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
     $table->id(); // المفتاح الأساسي (Primary Key)
-    $table->string('grade_name'); // اسم الفصل
+    $table->string('class_name'); // اسم الفصل
     $table->string('academic_year'); // السنة الدراسية (مثلاً 2024-2025)
     $table->integer('class_capacity')->default(30); // السعة الافتراضية للفصل
     $table->timestamps(); // حقول created_at و updated_at تلقائي

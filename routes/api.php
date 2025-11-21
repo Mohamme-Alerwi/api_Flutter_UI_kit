@@ -120,7 +120,7 @@ Route::get('exams/subjects', [SubjectController::class, 'index']);//
 
 // ---------------- Library ----------------
 Route::get('library', [LibraryController::class, 'apiIndex']); // جلب جميع الكتب
-// Route::post('library', [LibraryController::class, 'store']); // إضافة كتاب جديد
+Route::post('library', [LibraryController::class, 'store']); // إضافة كتاب جديد
 Route::put('library/{id}', [LibraryController::class, 'update']); // تعديل كتاب
 Route::delete('library/{id}', [LibraryController::class, 'destroy']); // حذف كتاب
 
@@ -160,6 +160,9 @@ Route::post('/login/student', [AuthController::class, 'loginStudent']);
 
 // تسجيل دخول ألمدير
 Route::post('/login/admin', [AuthController::class, 'loginAdmin']);
+
+//تسجيل دخول ولي الامر
+Route::post('/login/parent', [AuthController::class, 'loginParent']);
 
 
 Route::middleware('auth:sanctum')->group(function ()

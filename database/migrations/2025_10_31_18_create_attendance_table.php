@@ -19,15 +19,16 @@ return new class extends Migration
     $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
     // ربط الصف
-    $table->unsignedBigInteger('grade_id');
-    $table->foreign('grade_id')->references('id')->on('classes')->onDelete('cascade');
+    $table->unsignedBigInteger('class_id');
+    $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
 
     // ربط الشعبة
     $table->unsignedBigInteger('section_id');
     $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
     // التاريخ (النظام يحدده أوتوماتيكياً)
-    $table->ء('date')->default(DB::raw('CURRENT_DATE'));
+    $table->date('date')->default(DB::raw('CURRENT_DATE'));
+
 
     // حالة الحضور
     $table->enum('status', ['حاضر', 'غائب'])->default('حاضر');

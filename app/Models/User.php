@@ -44,13 +44,17 @@ class User extends Authenticatable
         'password' => 'hashed', //  سيقوم بتشفير كلمة المرور تلقائياً عند حفظها
     ];
     
-      public function setPasswordAttribute($value)
+    //   public function setPasswordAttribute($value)
+    // {
+    //     // تحقق أولًا إذا لم تكن مشفرة بالفعل
+    //     if (!Hash::needsRehash($value)) {
+    //         $value = Hash::make($value);
+    //     }
+    //     $this->attributes['password'] = $value;
+    // }
+        public function setPasswordAttribute($value)
     {
-        // تحقق أولًا إذا لم تكن مشفرة بالفعل
-        if (!Hash::needsRehash($value)) {
-            $value = Hash::make($value);
-        }
-        $this->attributes['password'] = $value;
+        $this->attributes['password'] = Hash::make($value);
     }
  
 }

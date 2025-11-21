@@ -12,7 +12,7 @@ class Assignment extends Model
         'title',
         'description',
         'teacher_id',
-        'grade_id',
+        'class_id',
         'section',
         'subject',
         'priority',
@@ -24,7 +24,7 @@ class Assignment extends Model
         'submission_file_path',
     ];
 public function grade() {
-    return $this->belongsTo(\App\Models\SchoolClass::class, 'grade_id');
+    return $this->belongsTo(\App\Models\SchoolClass::class, 'class_id');
 }
 
    public function teacher()

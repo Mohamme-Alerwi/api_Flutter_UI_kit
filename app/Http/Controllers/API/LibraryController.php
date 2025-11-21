@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class LibraryController extends Controller
 {
+        public function index()
+    {
+        $books = Library::all();
+        return view('book.index', compact('books'));
+    }
     // إضافة كتاب جديد
     public function store(Request $request) {
         $validated = $request->validate([
@@ -16,7 +21,7 @@ class LibraryController extends Controller
             'author' => 'required|string|max:255',
             'publisher' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:100',
-            'grade_id' => 'required|exists:classes,id',
+            'class_id' => 'required|exists:classes,id',
             'subject_id' => 'required|exists:subjects,id',
             'file' => 'nullable|file|max:10240', // 10MB
         ]);
@@ -63,7 +68,7 @@ class LibraryController extends Controller
             'author' => 'sometimes|string|max:255',
             'publisher' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:100',
-            'grade_id' => 'sometimes|exists:classes,id',
+            'class_id' => 'sometimes|exists:classes,id',
             'subject_id' => 'sometimes|exists:subjects,id',
             'file' => 'nullable|file|max:10240',
         ]);

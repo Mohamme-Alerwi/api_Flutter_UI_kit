@@ -11,7 +11,7 @@ class ClassController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'grade_name' => 'required|string|max:255',
+            'class_name' => 'required|string|max:255',
             'academic_year' => 'required|string|max:20',
             'class_capacity' => 'nullable|integer|min:1',
         ]);
@@ -37,9 +37,9 @@ class ClassController extends Controller
     public function index()
     {
         // جلب كل الفصول مع الشعب المرتبطة
-        $classes = SchoolClass::with('sections')->get();
-
-        return response()->json($classes);
+        //  $classes = SchoolClass::with('sections')->get();
+        $classes = SchoolClass::all();
+        return response()->json($classes,200);
     }
 
     // جلب الشعب لفصل معين

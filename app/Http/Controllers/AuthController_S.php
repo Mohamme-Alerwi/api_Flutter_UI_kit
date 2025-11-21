@@ -25,14 +25,14 @@ class AuthController_S extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
             'password' => 'required|string|min:6',
-            'grade_id' => 'required|exists:classes,id', // ربط بالصف
+            'class_id' => 'required|exists:classes,id', // ربط بالصف
         ]);
 
         $student = Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'grade_id' =>$request->grade_id
+            'class_id' =>$request->class_id
         ]);
 
         return response()->json([
@@ -47,11 +47,25 @@ class AuthController_S extends Controller
         $students = Student::all(); // جلب كل الطلاب
         return response()->json($students, 200);
     }
-       public function index()
-    {
-        $students = Student::all(); // جلب كل الطلاب
-        return response()->json($students, 200);
+    //    public function index()
+    // {
+    //     $students = Student::all(); // جلب كل الطلاب
+    //     return response()->json($students, 200);
+        
+    // }
+    public function index(Request $request)
+{
+    $students = Student::all();
+
+    // إذا كان الطلب من Flutter أو أي API (يرسل Accept: application/json)
+    if ($request->wantsJson()) {
+        return response()->json($students);
     }
+
+    // إذا كان طلب عادي من المتصفح
+    return view('students.index', compact('students'));
+}
+
     public function filter(Request $request)
 {
     $classId = $request->query('class_id');
@@ -73,6 +87,13 @@ class AuthController_S extends Controller
 }
 
 
+public function destroy($id)
+    {
+        $student = Student::findOrFail($id);
+        $student->delete();
+
+        return redirect()->route('students.index');
+    }
 }
 
 

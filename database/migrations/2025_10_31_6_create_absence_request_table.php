@@ -9,8 +9,8 @@ return new class extends Migration {
     {
         Schema::create('Absence_request', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['student', 'teacher'])->default('student'); // نوع المعتذر 
             $table->string('full_name');
+            $table->enum('request_type', ['parent', 'teacher'])->default('parent'); // نوع المعتذر 
             $table->date('date'); // تاريخ الإجازة
             $table->string('reason'); // سبب الإجازة
             $table->text('details')->nullable(); // تفاصيل إضافية

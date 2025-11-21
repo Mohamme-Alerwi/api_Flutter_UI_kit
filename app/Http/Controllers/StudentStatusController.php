@@ -32,7 +32,7 @@ class StudentStatusController extends Controller
     {
         $query = StudentStatus::with('student');
 
-        if ($request->has('grade_id')) {
+        if ($request->has('class_id')) {
             $query->whereHas('student', function ($q) use ($request) {
                 $q->where('class_id', $request->class_id);
             });

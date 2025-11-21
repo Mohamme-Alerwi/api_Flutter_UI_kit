@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models;
 use App\Models\Assignment;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,8 +13,8 @@ public function upload(Request $request)
 {
     $request->validate([
         'title' => 'required|string|max:255',
-        'teacher_id' => 'required|int|exists:teachers,id',
-        'grade_id' => 'required|int|exists:grades,id',
+        'teacher_id' => 'required|integer|exists:teachers,id',
+        'class_id' => 'required|integer|exists:grades,id',
         'section' => 'required|string|max:255',
         'subject' => 'required|string|max:255',
         'priority' => 'nullable|string|max:50',
@@ -31,7 +32,7 @@ public function upload(Request $request)
 
     // جلب اسم المعلم والصف تلقائيًا من قاعدة البيانات
     $teacher = \App\Models\Teacher::findOrFail($request->teacher_id);
-    $grade = \App\Models\Grade::findOrFail($request->grade_id);
+    $SchoolClass = \App\Models\SchoolClass::findOrFail($request->class_id);
 
     // إنشاء التكليف
     $assignment = \App\Models\Assignment::create([
@@ -39,8 +40,8 @@ public function upload(Request $request)
         'description' => $request->description,
         'teacher_id' => $teacher->id,             // تخزين الـ ID أيضًا
         'teacher_name' => $teacher->full_name,    // اسم المعلم
-        'grade_id' => $grade->id,                 // تخزين الـ ID للصف
-        'grade_name' => $grade->garde_name,             // اسم الصف
+        'class_id' => $SchoolClass->id,                 // تخزين الـ ID للصف
+        'class_name' => $SchoolClass->class_name,             // اسم الصف
         'section' => $request->section,
         'subject' => $request->subject,
         'priority' => $request->priority ?? 'متوسط',

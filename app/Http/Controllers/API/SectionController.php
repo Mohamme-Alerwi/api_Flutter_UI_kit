@@ -11,7 +11,7 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'grade_id' => 'required|exists:classes,id', // ربط بالصف
+            'class_id' => 'required|exists:classes,id', // ربط بالصف
             'section_name' => 'required|string|max:255',
             'section_capacity' => 'nullable|integer|min:1',
             'teacher_id' => 'nullable|exists:teachers,id', // ربط بالمعلم

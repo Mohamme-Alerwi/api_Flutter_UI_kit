@@ -9,7 +9,7 @@ class Section extends Model
     use HasFactory; 
 
     protected $fillable = [
-        'grade_id',
+        'class_id',
         'section_name',
         'section_capacity',
         'teacher_id',
@@ -17,7 +17,7 @@ class Section extends Model
 
     public function class()
     {
-        return $this->belongsTo(SchoolClass::class, 'grade_id');
+        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 
     public function teacher()
@@ -31,4 +31,19 @@ class Section extends Model
     return $this->hasMany(Attendance::class, 'section_id');
 }
 
+    /**
+     * العلاقة مع الطلاب
+     */
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'section_id');
+    }
+
+    /**
+     * العلاقة مع الحصص (Timetable)
+     */
+    public function timetables()
+    {
+        return $this->hasMany(Timetable::class, 'section_id');
+    }
 }

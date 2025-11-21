@@ -18,7 +18,7 @@ class SmsController extends Controller
 //فلتره الطلاب على حسب الصف و الشعبه لتحضيرهم 
 public function filter(Request $request)
 {
-    $classId = $request->query('grade_id');
+    $classId = $request->query('class_id');
     $sectionId = $request->query('section_id');
 
     $query = \App\Models\Student::query();

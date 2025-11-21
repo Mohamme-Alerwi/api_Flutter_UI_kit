@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Teacher;
 use App\Models\Student;
+use App\Models\ParentsModel;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -82,7 +83,7 @@ class AuthController extends Controller
                 'id' => $student->id,
                 'name' => $student->name,
                 'email' => $student->email,
-                'grade_id' => $student->grade_id,
+                'class_id' => $student->class_id,
                 'role' => 'student',
             ],
             'access_token' => $token,
@@ -100,7 +101,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password,$user->password)) {
             return response()->json([
                 'success' => false,
                 'message' => 'بيانات الدخول غير صحيحة'
@@ -125,6 +126,39 @@ class AuthController extends Controller
         ], 200);
     }
     
+    public function loginParent(Request $request)
+    {
+         $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $parent = ParentsModel::where('email', $request->email)->first();
+
+        if (!$parent || !Hash::check($request->password, $parent->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'بيانات الدخول غير صحيحة'
+            ], 401);
+        }
+
+        $parent->tokens()->delete();
+        // $token = $user->createToken('parent_token')->plainTextToken;
+            $token = $parent->createToken('parent_token', ['parent'])->plainTextToken;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'تم تسجيل الدخول بنجاح',
+            'user' => [
+                'id' => $parent->id,
+                'name' => $parent->full_name,
+                'email' => $parent->email,
+                'role' => 'parent',
+            ],
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ], 200);
+    }
 }
 
 

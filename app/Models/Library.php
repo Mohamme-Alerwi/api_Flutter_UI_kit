@@ -13,14 +13,14 @@ class Library extends Model
     'author',
     'publisher',
     'category',
-    'grade_id',
+    'class_id',
     'subject_id',
     'file_name',
     'file_path',
 ];
 // علاقات
 public function class() {
-    return $this->belongsTo(\App\Models\Classes::class, 'grade_id');
+    return $this->belongsTo(\App\Models\Classes::class, 'class_id');
 }
 
 public function subject() {

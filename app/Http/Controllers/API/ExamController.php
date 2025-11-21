@@ -19,7 +19,7 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'grade_id' => 'required|exists:classes,id',
+            'class_id' => 'required|exists:classes,id',
             'subject_id' => 'required|exists:subjects,id',
             'importance' => 'required|in:عالية,متوسطة,منخفضة',
             'status' => 'required|in:قادم,منتهي,ملغي',

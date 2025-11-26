@@ -5,7 +5,7 @@
 # استخدم PHP مع Apache
 FROM php:8.2-apache
 
-# تحديد مجلد العمل داخل الحاوية
+# مجلد العمل داخل الحاوية
 WORKDIR /var/www/html
 
 # نسخ كل ملفات المشروع إلى الحاوية
@@ -31,6 +31,9 @@ RUN composer install --no-dev --optimize-autoloader
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN a2enmod rewrite
+
+# إضافة ServerName لتجنب تحذيرات Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # كشف المنفذ 80 للويب
 EXPOSE 80

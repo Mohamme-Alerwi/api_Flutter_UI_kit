@@ -5,6 +5,10 @@ use App\Http\Controllers\API\TeacherController;
 use App\Http\Controllers\API\LibraryController;
 use App\Http\Controllers\DashboardController;
 
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok']);
+});
+
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
